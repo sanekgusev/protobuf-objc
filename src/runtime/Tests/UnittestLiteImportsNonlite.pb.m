@@ -65,7 +65,7 @@ static TestLiteImportsNonlite* defaultTestLiteImportsNonliteInstance = nil;
   [self.unknownFields writeToCodedOutputStream:output];
 }
 - (int32_t) serializedSize {
-  int32_t size = memoizedSerializedSize;
+  int32_t size = _memorizedSerializedSize;
   if (size != -1) {
     return size;
   }
@@ -75,7 +75,7 @@ static TestLiteImportsNonlite* defaultTestLiteImportsNonliteInstance = nil;
     size += computeMessageSize(1, self.message);
   }
   size += self.unknownFields.serializedSize;
-  memoizedSerializedSize = size;
+  _memorizedSerializedSize = size;
   return size;
 }
 + (TestLiteImportsNonlite*) parseFromData:(NSData*) data {

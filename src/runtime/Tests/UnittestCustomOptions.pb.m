@@ -675,7 +675,7 @@ static TestMessageWithCustomOptions* defaultTestMessageWithCustomOptionsInstance
   [self.unknownFields writeToCodedOutputStream:output];
 }
 - (int32_t) serializedSize {
-  int32_t size = memoizedSerializedSize;
+  int32_t size = _memorizedSerializedSize;
   if (size != -1) {
     return size;
   }
@@ -685,7 +685,7 @@ static TestMessageWithCustomOptions* defaultTestMessageWithCustomOptionsInstance
     size += computeStringSize(1, self.field1);
   }
   size += self.unknownFields.serializedSize;
-  memoizedSerializedSize = size;
+  _memorizedSerializedSize = size;
   return size;
 }
 + (TestMessageWithCustomOptions*) parseFromData:(NSData*) data {
@@ -880,14 +880,14 @@ static CustomOptionFooRequest* defaultCustomOptionFooRequestInstance = nil;
   [self.unknownFields writeToCodedOutputStream:output];
 }
 - (int32_t) serializedSize {
-  int32_t size = memoizedSerializedSize;
+  int32_t size = _memorizedSerializedSize;
   if (size != -1) {
     return size;
   }
 
   size = 0;
   size += self.unknownFields.serializedSize;
-  memoizedSerializedSize = size;
+  _memorizedSerializedSize = size;
   return size;
 }
 + (CustomOptionFooRequest*) parseFromData:(NSData*) data {
@@ -1041,14 +1041,14 @@ static CustomOptionFooResponse* defaultCustomOptionFooResponseInstance = nil;
   [self.unknownFields writeToCodedOutputStream:output];
 }
 - (int32_t) serializedSize {
-  int32_t size = memoizedSerializedSize;
+  int32_t size = _memorizedSerializedSize;
   if (size != -1) {
     return size;
   }
 
   size = 0;
   size += self.unknownFields.serializedSize;
-  memoizedSerializedSize = size;
+  _memorizedSerializedSize = size;
   return size;
 }
 + (CustomOptionFooResponse*) parseFromData:(NSData*) data {
@@ -1202,14 +1202,14 @@ static DummyMessageContainingEnum* defaultDummyMessageContainingEnumInstance = n
   [self.unknownFields writeToCodedOutputStream:output];
 }
 - (int32_t) serializedSize {
-  int32_t size = memoizedSerializedSize;
+  int32_t size = _memorizedSerializedSize;
   if (size != -1) {
     return size;
   }
 
   size = 0;
   size += self.unknownFields.serializedSize;
-  memoizedSerializedSize = size;
+  _memorizedSerializedSize = size;
   return size;
 }
 + (DummyMessageContainingEnum*) parseFromData:(NSData*) data {
@@ -1372,14 +1372,14 @@ static DummyMessageInvalidAsOptionType* defaultDummyMessageInvalidAsOptionTypeIn
   [self.unknownFields writeToCodedOutputStream:output];
 }
 - (int32_t) serializedSize {
-  int32_t size = memoizedSerializedSize;
+  int32_t size = _memorizedSerializedSize;
   if (size != -1) {
     return size;
   }
 
   size = 0;
   size += self.unknownFields.serializedSize;
-  memoizedSerializedSize = size;
+  _memorizedSerializedSize = size;
   return size;
 }
 + (DummyMessageInvalidAsOptionType*) parseFromData:(NSData*) data {
@@ -1533,14 +1533,14 @@ static CustomOptionMinIntegerValues* defaultCustomOptionMinIntegerValuesInstance
   [self.unknownFields writeToCodedOutputStream:output];
 }
 - (int32_t) serializedSize {
-  int32_t size = memoizedSerializedSize;
+  int32_t size = _memorizedSerializedSize;
   if (size != -1) {
     return size;
   }
 
   size = 0;
   size += self.unknownFields.serializedSize;
-  memoizedSerializedSize = size;
+  _memorizedSerializedSize = size;
   return size;
 }
 + (CustomOptionMinIntegerValues*) parseFromData:(NSData*) data {
@@ -1694,14 +1694,14 @@ static CustomOptionMaxIntegerValues* defaultCustomOptionMaxIntegerValuesInstance
   [self.unknownFields writeToCodedOutputStream:output];
 }
 - (int32_t) serializedSize {
-  int32_t size = memoizedSerializedSize;
+  int32_t size = _memorizedSerializedSize;
   if (size != -1) {
     return size;
   }
 
   size = 0;
   size += self.unknownFields.serializedSize;
-  memoizedSerializedSize = size;
+  _memorizedSerializedSize = size;
   return size;
 }
 + (CustomOptionMaxIntegerValues*) parseFromData:(NSData*) data {
@@ -1855,14 +1855,14 @@ static CustomOptionOtherValues* defaultCustomOptionOtherValuesInstance = nil;
   [self.unknownFields writeToCodedOutputStream:output];
 }
 - (int32_t) serializedSize {
-  int32_t size = memoizedSerializedSize;
+  int32_t size = _memorizedSerializedSize;
   if (size != -1) {
     return size;
   }
 
   size = 0;
   size += self.unknownFields.serializedSize;
-  memoizedSerializedSize = size;
+  _memorizedSerializedSize = size;
   return size;
 }
 + (CustomOptionOtherValues*) parseFromData:(NSData*) data {
@@ -2016,14 +2016,14 @@ static SettingRealsFromPositiveInts* defaultSettingRealsFromPositiveIntsInstance
   [self.unknownFields writeToCodedOutputStream:output];
 }
 - (int32_t) serializedSize {
-  int32_t size = memoizedSerializedSize;
+  int32_t size = _memorizedSerializedSize;
   if (size != -1) {
     return size;
   }
 
   size = 0;
   size += self.unknownFields.serializedSize;
-  memoizedSerializedSize = size;
+  _memorizedSerializedSize = size;
   return size;
 }
 + (SettingRealsFromPositiveInts*) parseFromData:(NSData*) data {
@@ -2177,14 +2177,14 @@ static SettingRealsFromNegativeInts* defaultSettingRealsFromNegativeIntsInstance
   [self.unknownFields writeToCodedOutputStream:output];
 }
 - (int32_t) serializedSize {
-  int32_t size = memoizedSerializedSize;
+  int32_t size = _memorizedSerializedSize;
   if (size != -1) {
     return size;
   }
 
   size = 0;
   size += self.unknownFields.serializedSize;
-  memoizedSerializedSize = size;
+  _memorizedSerializedSize = size;
   return size;
 }
 + (SettingRealsFromNegativeInts*) parseFromData:(NSData*) data {
@@ -2380,7 +2380,7 @@ static ComplexOptionType1* defaultComplexOptionType1Instance = nil;
   [self.unknownFields writeToCodedOutputStream:output];
 }
 - (int32_t) serializedSize {
-  int32_t size = memoizedSerializedSize;
+  int32_t size = _memorizedSerializedSize;
   if (size != -1) {
     return size;
   }
@@ -2397,7 +2397,7 @@ static ComplexOptionType1* defaultComplexOptionType1Instance = nil;
   }
   size += [self extensionsSerializedSize];
   size += self.unknownFields.serializedSize;
-  memoizedSerializedSize = size;
+  _memorizedSerializedSize = size;
   return size;
 }
 + (ComplexOptionType1*) parseFromData:(NSData*) data {
@@ -2704,7 +2704,7 @@ static ComplexOptionType2* defaultComplexOptionType2Instance = nil;
   [self.unknownFields writeToCodedOutputStream:output];
 }
 - (int32_t) serializedSize {
-  int32_t size = memoizedSerializedSize;
+  int32_t size = _memorizedSerializedSize;
   if (size != -1) {
     return size;
   }
@@ -2721,7 +2721,7 @@ static ComplexOptionType2* defaultComplexOptionType2Instance = nil;
   }
   size += [self extensionsSerializedSize];
   size += self.unknownFields.serializedSize;
-  memoizedSerializedSize = size;
+  _memorizedSerializedSize = size;
   return size;
 }
 + (ComplexOptionType2*) parseFromData:(NSData*) data {
@@ -2862,7 +2862,7 @@ static ComplexOptionType2_ComplexOptionType4* defaultComplexOptionType2_ComplexO
   [self.unknownFields writeToCodedOutputStream:output];
 }
 - (int32_t) serializedSize {
-  int32_t size = memoizedSerializedSize;
+  int32_t size = _memorizedSerializedSize;
   if (size != -1) {
     return size;
   }
@@ -2872,7 +2872,7 @@ static ComplexOptionType2_ComplexOptionType4* defaultComplexOptionType2_ComplexO
     size += computeInt32Size(1, self.waldo);
   }
   size += self.unknownFields.serializedSize;
-  memoizedSerializedSize = size;
+  _memorizedSerializedSize = size;
   return size;
 }
 + (ComplexOptionType2_ComplexOptionType4*) parseFromData:(NSData*) data {
@@ -3259,7 +3259,7 @@ static ComplexOptionType3* defaultComplexOptionType3Instance = nil;
   [self.unknownFields writeToCodedOutputStream:output];
 }
 - (int32_t) serializedSize {
-  int32_t size = memoizedSerializedSize;
+  int32_t size = _memorizedSerializedSize;
   if (size != -1) {
     return size;
   }
@@ -3272,7 +3272,7 @@ static ComplexOptionType3* defaultComplexOptionType3Instance = nil;
     size += computeGroupSize(2, self.complexOptionType5);
   }
   size += self.unknownFields.serializedSize;
-  memoizedSerializedSize = size;
+  _memorizedSerializedSize = size;
   return size;
 }
 + (ComplexOptionType3*) parseFromData:(NSData*) data {
@@ -3391,7 +3391,7 @@ static ComplexOptionType3_ComplexOptionType5* defaultComplexOptionType3_ComplexO
   [self.unknownFields writeToCodedOutputStream:output];
 }
 - (int32_t) serializedSize {
-  int32_t size = memoizedSerializedSize;
+  int32_t size = _memorizedSerializedSize;
   if (size != -1) {
     return size;
   }
@@ -3401,7 +3401,7 @@ static ComplexOptionType3_ComplexOptionType5* defaultComplexOptionType3_ComplexO
     size += computeInt32Size(3, self.plugh);
   }
   size += self.unknownFields.serializedSize;
-  memoizedSerializedSize = size;
+  _memorizedSerializedSize = size;
   return size;
 }
 + (ComplexOptionType3_ComplexOptionType5*) parseFromData:(NSData*) data {
@@ -3732,7 +3732,7 @@ static ComplexOpt6* defaultComplexOpt6Instance = nil;
   [self.unknownFields writeToCodedOutputStream:output];
 }
 - (int32_t) serializedSize {
-  int32_t size = memoizedSerializedSize;
+  int32_t size = _memorizedSerializedSize;
   if (size != -1) {
     return size;
   }
@@ -3742,7 +3742,7 @@ static ComplexOpt6* defaultComplexOpt6Instance = nil;
     size += computeInt32Size(7593951, self.xyzzy);
   }
   size += self.unknownFields.serializedSize;
-  memoizedSerializedSize = size;
+  _memorizedSerializedSize = size;
   return size;
 }
 + (ComplexOpt6*) parseFromData:(NSData*) data {
@@ -3928,14 +3928,14 @@ static VariousComplexOptions* defaultVariousComplexOptionsInstance = nil;
   [self.unknownFields writeToCodedOutputStream:output];
 }
 - (int32_t) serializedSize {
-  int32_t size = memoizedSerializedSize;
+  int32_t size = _memorizedSerializedSize;
   if (size != -1) {
     return size;
   }
 
   size = 0;
   size += self.unknownFields.serializedSize;
-  memoizedSerializedSize = size;
+  _memorizedSerializedSize = size;
   return size;
 }
 + (VariousComplexOptions*) parseFromData:(NSData*) data {
@@ -4095,7 +4095,7 @@ static AggregateMessageSet* defaultAggregateMessageSetInstance = nil;
   [self.unknownFields writeAsMessageSetTo:output];
 }
 - (int32_t) serializedSize {
-  int32_t size = memoizedSerializedSize;
+  int32_t size = _memorizedSerializedSize;
   if (size != -1) {
     return size;
   }
@@ -4103,7 +4103,7 @@ static AggregateMessageSet* defaultAggregateMessageSetInstance = nil;
   size = 0;
   size += [self extensionsSerializedSize];
   size += self.unknownFields.serializedSizeAsMessageSet;
-  memoizedSerializedSize = size;
+  _memorizedSerializedSize = size;
   return size;
 }
 + (AggregateMessageSet*) parseFromData:(NSData*) data {
@@ -4281,7 +4281,7 @@ static AggregateMessageSetElement* defaultAggregateMessageSetElementInstance = n
   [self.unknownFields writeToCodedOutputStream:output];
 }
 - (int32_t) serializedSize {
-  int32_t size = memoizedSerializedSize;
+  int32_t size = _memorizedSerializedSize;
   if (size != -1) {
     return size;
   }
@@ -4291,7 +4291,7 @@ static AggregateMessageSetElement* defaultAggregateMessageSetElementInstance = n
     size += computeStringSize(1, self.s);
   }
   size += self.unknownFields.serializedSize;
-  memoizedSerializedSize = size;
+  _memorizedSerializedSize = size;
   return size;
 }
 + (AggregateMessageSetElement*) parseFromData:(NSData*) data {
@@ -4559,7 +4559,7 @@ static Aggregate* defaultAggregateInstance = nil;
   [self.unknownFields writeToCodedOutputStream:output];
 }
 - (int32_t) serializedSize {
-  int32_t size = memoizedSerializedSize;
+  int32_t size = _memorizedSerializedSize;
   if (size != -1) {
     return size;
   }
@@ -4581,7 +4581,7 @@ static Aggregate* defaultAggregateInstance = nil;
     size += computeMessageSize(5, self.mset);
   }
   size += self.unknownFields.serializedSize;
-  memoizedSerializedSize = size;
+  _memorizedSerializedSize = size;
   return size;
 }
 + (Aggregate*) parseFromData:(NSData*) data {
@@ -4973,7 +4973,7 @@ static AggregateMessage* defaultAggregateMessageInstance = nil;
   [self.unknownFields writeToCodedOutputStream:output];
 }
 - (int32_t) serializedSize {
-  int32_t size = memoizedSerializedSize;
+  int32_t size = _memorizedSerializedSize;
   if (size != -1) {
     return size;
   }
@@ -4983,7 +4983,7 @@ static AggregateMessage* defaultAggregateMessageInstance = nil;
     size += computeInt32Size(1, self.fieldname);
   }
   size += self.unknownFields.serializedSize;
-  memoizedSerializedSize = size;
+  _memorizedSerializedSize = size;
   return size;
 }
 + (AggregateMessage*) parseFromData:(NSData*) data {

@@ -79,7 +79,7 @@ static TestMessageSet* defaultTestMessageSetInstance = nil;
   [self.unknownFields writeAsMessageSetTo:output];
 }
 - (int32_t) serializedSize {
-  int32_t size = memoizedSerializedSize;
+  int32_t size = _memorizedSerializedSize;
   if (size != -1) {
     return size;
   }
@@ -87,7 +87,7 @@ static TestMessageSet* defaultTestMessageSetInstance = nil;
   size = 0;
   size += [self extensionsSerializedSize];
   size += self.unknownFields.serializedSizeAsMessageSet;
-  memoizedSerializedSize = size;
+  _memorizedSerializedSize = size;
   return size;
 }
 + (TestMessageSet*) parseFromData:(NSData*) data {
@@ -267,7 +267,7 @@ static TestMessageSetContainer* defaultTestMessageSetContainerInstance = nil;
   [self.unknownFields writeToCodedOutputStream:output];
 }
 - (int32_t) serializedSize {
-  int32_t size = memoizedSerializedSize;
+  int32_t size = _memorizedSerializedSize;
   if (size != -1) {
     return size;
   }
@@ -277,7 +277,7 @@ static TestMessageSetContainer* defaultTestMessageSetContainerInstance = nil;
     size += computeMessageSize(1, self.messageSet);
   }
   size += self.unknownFields.serializedSize;
-  memoizedSerializedSize = size;
+  _memorizedSerializedSize = size;
   return size;
 }
 + (TestMessageSetContainer*) parseFromData:(NSData*) data {
@@ -500,7 +500,7 @@ static TestMessageSetExtension1* defaultTestMessageSetExtension1Instance = nil;
   [self.unknownFields writeToCodedOutputStream:output];
 }
 - (int32_t) serializedSize {
-  int32_t size = memoizedSerializedSize;
+  int32_t size = _memorizedSerializedSize;
   if (size != -1) {
     return size;
   }
@@ -510,7 +510,7 @@ static TestMessageSetExtension1* defaultTestMessageSetExtension1Instance = nil;
     size += computeInt32Size(15, self.i);
   }
   size += self.unknownFields.serializedSize;
-  memoizedSerializedSize = size;
+  _memorizedSerializedSize = size;
   return size;
 }
 + (TestMessageSetExtension1*) parseFromData:(NSData*) data {
@@ -712,7 +712,7 @@ static TestMessageSetExtension2* defaultTestMessageSetExtension2Instance = nil;
   [self.unknownFields writeToCodedOutputStream:output];
 }
 - (int32_t) serializedSize {
-  int32_t size = memoizedSerializedSize;
+  int32_t size = _memorizedSerializedSize;
   if (size != -1) {
     return size;
   }
@@ -722,7 +722,7 @@ static TestMessageSetExtension2* defaultTestMessageSetExtension2Instance = nil;
     size += computeStringSize(25, self.str);
   }
   size += self.unknownFields.serializedSize;
-  memoizedSerializedSize = size;
+  _memorizedSerializedSize = size;
   return size;
 }
 + (TestMessageSetExtension2*) parseFromData:(NSData*) data {
@@ -926,7 +926,7 @@ static RawMessageSet* defaultRawMessageSetInstance = nil;
   [self.unknownFields writeToCodedOutputStream:output];
 }
 - (int32_t) serializedSize {
-  int32_t size = memoizedSerializedSize;
+  int32_t size = _memorizedSerializedSize;
   if (size != -1) {
     return size;
   }
@@ -936,7 +936,7 @@ static RawMessageSet* defaultRawMessageSetInstance = nil;
     size += computeGroupSize(1, element);
   }
   size += self.unknownFields.serializedSize;
-  memoizedSerializedSize = size;
+  _memorizedSerializedSize = size;
   return size;
 }
 + (RawMessageSet*) parseFromData:(NSData*) data {
@@ -1064,7 +1064,7 @@ static RawMessageSet_Item* defaultRawMessageSet_ItemInstance = nil;
   [self.unknownFields writeToCodedOutputStream:output];
 }
 - (int32_t) serializedSize {
-  int32_t size = memoizedSerializedSize;
+  int32_t size = _memorizedSerializedSize;
   if (size != -1) {
     return size;
   }
@@ -1077,7 +1077,7 @@ static RawMessageSet_Item* defaultRawMessageSet_ItemInstance = nil;
     size += computeDataSize(3, self.message);
   }
   size += self.unknownFields.serializedSize;
-  memoizedSerializedSize = size;
+  _memorizedSerializedSize = size;
   return size;
 }
 + (RawMessageSet_Item*) parseFromData:(NSData*) data {

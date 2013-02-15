@@ -69,7 +69,7 @@ static PBFileDescriptorSet* defaultPBFileDescriptorSetInstance = nil;
   [self.unknownFields writeToCodedOutputStream:output];
 }
 - (int32_t) serializedSize {
-  int32_t size = memoizedSerializedSize;
+  int32_t size = _memorizedSerializedSize;
   if (size != -1) {
     return size;
   }
@@ -79,7 +79,7 @@ static PBFileDescriptorSet* defaultPBFileDescriptorSetInstance = nil;
     size += computeMessageSize(1, element);
   }
   size += self.unknownFields.serializedSize;
-  memoizedSerializedSize = size;
+  _memorizedSerializedSize = size;
   return size;
 }
 + (PBFileDescriptorSet*) parseFromData:(NSData*) data {
@@ -381,7 +381,7 @@ static PBFileDescriptorProto* defaultPBFileDescriptorProtoInstance = nil;
   [self.unknownFields writeToCodedOutputStream:output];
 }
 - (int32_t) serializedSize {
-  int32_t size = memoizedSerializedSize;
+  int32_t size = _memorizedSerializedSize;
   if (size != -1) {
     return size;
   }
@@ -417,7 +417,7 @@ static PBFileDescriptorProto* defaultPBFileDescriptorProtoInstance = nil;
     size += computeMessageSize(8, self.options);
   }
   size += self.unknownFields.serializedSize;
-  memoizedSerializedSize = size;
+  _memorizedSerializedSize = size;
   return size;
 }
 + (PBFileDescriptorProto*) parseFromData:(NSData*) data {
@@ -958,7 +958,7 @@ static PBDescriptorProto* defaultPBDescriptorProtoInstance = nil;
   [self.unknownFields writeToCodedOutputStream:output];
 }
 - (int32_t) serializedSize {
-  int32_t size = memoizedSerializedSize;
+  int32_t size = _memorizedSerializedSize;
   if (size != -1) {
     return size;
   }
@@ -986,7 +986,7 @@ static PBDescriptorProto* defaultPBDescriptorProtoInstance = nil;
     size += computeMessageSize(7, self.options);
   }
   size += self.unknownFields.serializedSize;
-  memoizedSerializedSize = size;
+  _memorizedSerializedSize = size;
   return size;
 }
 + (PBDescriptorProto*) parseFromData:(NSData*) data {
@@ -1074,7 +1074,7 @@ static PBDescriptorProto_ExtensionRange* defaultPBDescriptorProto_ExtensionRange
   [self.unknownFields writeToCodedOutputStream:output];
 }
 - (int32_t) serializedSize {
-  int32_t size = memoizedSerializedSize;
+  int32_t size = _memorizedSerializedSize;
   if (size != -1) {
     return size;
   }
@@ -1087,7 +1087,7 @@ static PBDescriptorProto_ExtensionRange* defaultPBDescriptorProto_ExtensionRange
     size += computeInt32Size(2, self.end);
   }
   size += self.unknownFields.serializedSize;
-  memoizedSerializedSize = size;
+  _memorizedSerializedSize = size;
   return size;
 }
 + (PBDescriptorProto_ExtensionRange*) parseFromData:(NSData*) data {
@@ -1709,7 +1709,7 @@ static PBFieldDescriptorProto* defaultPBFieldDescriptorProtoInstance = nil;
   [self.unknownFields writeToCodedOutputStream:output];
 }
 - (int32_t) serializedSize {
-  int32_t size = memoizedSerializedSize;
+  int32_t size = _memorizedSerializedSize;
   if (size != -1) {
     return size;
   }
@@ -1740,7 +1740,7 @@ static PBFieldDescriptorProto* defaultPBFieldDescriptorProtoInstance = nil;
     size += computeMessageSize(8, self.options);
   }
   size += self.unknownFields.serializedSize;
-  memoizedSerializedSize = size;
+  _memorizedSerializedSize = size;
   return size;
 }
 + (PBFieldDescriptorProto*) parseFromData:(NSData*) data {
@@ -2169,7 +2169,7 @@ static PBEnumDescriptorProto* defaultPBEnumDescriptorProtoInstance = nil;
   [self.unknownFields writeToCodedOutputStream:output];
 }
 - (int32_t) serializedSize {
-  int32_t size = memoizedSerializedSize;
+  int32_t size = _memorizedSerializedSize;
   if (size != -1) {
     return size;
   }
@@ -2185,7 +2185,7 @@ static PBEnumDescriptorProto* defaultPBEnumDescriptorProtoInstance = nil;
     size += computeMessageSize(3, self.options);
   }
   size += self.unknownFields.serializedSize;
-  memoizedSerializedSize = size;
+  _memorizedSerializedSize = size;
   return size;
 }
 + (PBEnumDescriptorProto*) parseFromData:(NSData*) data {
@@ -2466,7 +2466,7 @@ static PBEnumValueDescriptorProto* defaultPBEnumValueDescriptorProtoInstance = n
   [self.unknownFields writeToCodedOutputStream:output];
 }
 - (int32_t) serializedSize {
-  int32_t size = memoizedSerializedSize;
+  int32_t size = _memorizedSerializedSize;
   if (size != -1) {
     return size;
   }
@@ -2482,7 +2482,7 @@ static PBEnumValueDescriptorProto* defaultPBEnumValueDescriptorProtoInstance = n
     size += computeMessageSize(3, self.options);
   }
   size += self.unknownFields.serializedSize;
-  memoizedSerializedSize = size;
+  _memorizedSerializedSize = size;
   return size;
 }
 + (PBEnumValueDescriptorProto*) parseFromData:(NSData*) data {
@@ -2751,7 +2751,7 @@ static PBServiceDescriptorProto* defaultPBServiceDescriptorProtoInstance = nil;
   [self.unknownFields writeToCodedOutputStream:output];
 }
 - (int32_t) serializedSize {
-  int32_t size = memoizedSerializedSize;
+  int32_t size = _memorizedSerializedSize;
   if (size != -1) {
     return size;
   }
@@ -2767,7 +2767,7 @@ static PBServiceDescriptorProto* defaultPBServiceDescriptorProtoInstance = nil;
     size += computeMessageSize(3, self.options);
   }
   size += self.unknownFields.serializedSize;
-  memoizedSerializedSize = size;
+  _memorizedSerializedSize = size;
   return size;
 }
 + (PBServiceDescriptorProto*) parseFromData:(NSData*) data {
@@ -3062,7 +3062,7 @@ static PBMethodDescriptorProto* defaultPBMethodDescriptorProtoInstance = nil;
   [self.unknownFields writeToCodedOutputStream:output];
 }
 - (int32_t) serializedSize {
-  int32_t size = memoizedSerializedSize;
+  int32_t size = _memorizedSerializedSize;
   if (size != -1) {
     return size;
   }
@@ -3081,7 +3081,7 @@ static PBMethodDescriptorProto* defaultPBMethodDescriptorProtoInstance = nil;
     size += computeMessageSize(4, self.options);
   }
   size += self.unknownFields.serializedSize;
-  memoizedSerializedSize = size;
+  _memorizedSerializedSize = size;
   return size;
 }
 + (PBMethodDescriptorProto*) parseFromData:(NSData*) data {
@@ -3403,7 +3403,7 @@ static PBFileOptions* defaultPBFileOptionsInstance = nil;
   [self.unknownFields writeToCodedOutputStream:output];
 }
 - (int32_t) serializedSize {
-  int32_t size = memoizedSerializedSize;
+  int32_t size = _memorizedSerializedSize;
   if (size != -1) {
     return size;
   }
@@ -3426,7 +3426,7 @@ static PBFileOptions* defaultPBFileOptionsInstance = nil;
   }
   size += [self extensionsSerializedSize];
   size += self.unknownFields.serializedSize;
-  memoizedSerializedSize = size;
+  _memorizedSerializedSize = size;
   return size;
 }
 + (PBFileOptions*) parseFromData:(NSData*) data {
@@ -3765,7 +3765,7 @@ static PBMessageOptions* defaultPBMessageOptionsInstance = nil;
   [self.unknownFields writeToCodedOutputStream:output];
 }
 - (int32_t) serializedSize {
-  int32_t size = memoizedSerializedSize;
+  int32_t size = _memorizedSerializedSize;
   if (size != -1) {
     return size;
   }
@@ -3782,7 +3782,7 @@ static PBMessageOptions* defaultPBMessageOptionsInstance = nil;
   }
   size += [self extensionsSerializedSize];
   size += self.unknownFields.serializedSize;
-  memoizedSerializedSize = size;
+  _memorizedSerializedSize = size;
   return size;
 }
 + (PBMessageOptions*) parseFromData:(NSData*) data {
@@ -4085,7 +4085,7 @@ static PBFieldOptions* defaultPBFieldOptionsInstance = nil;
   [self.unknownFields writeToCodedOutputStream:output];
 }
 - (int32_t) serializedSize {
-  int32_t size = memoizedSerializedSize;
+  int32_t size = _memorizedSerializedSize;
   if (size != -1) {
     return size;
   }
@@ -4108,7 +4108,7 @@ static PBFieldOptions* defaultPBFieldOptionsInstance = nil;
   }
   size += [self extensionsSerializedSize];
   size += self.unknownFields.serializedSize;
-  memoizedSerializedSize = size;
+  _memorizedSerializedSize = size;
   return size;
 }
 + (PBFieldOptions*) parseFromData:(NSData*) data {
@@ -4412,7 +4412,7 @@ static PBEnumOptions* defaultPBEnumOptionsInstance = nil;
   [self.unknownFields writeToCodedOutputStream:output];
 }
 - (int32_t) serializedSize {
-  int32_t size = memoizedSerializedSize;
+  int32_t size = _memorizedSerializedSize;
   if (size != -1) {
     return size;
   }
@@ -4423,7 +4423,7 @@ static PBEnumOptions* defaultPBEnumOptionsInstance = nil;
   }
   size += [self extensionsSerializedSize];
   size += self.unknownFields.serializedSize;
-  memoizedSerializedSize = size;
+  _memorizedSerializedSize = size;
   return size;
 }
 + (PBEnumOptions*) parseFromData:(NSData*) data {
@@ -4621,7 +4621,7 @@ static PBEnumValueOptions* defaultPBEnumValueOptionsInstance = nil;
   [self.unknownFields writeToCodedOutputStream:output];
 }
 - (int32_t) serializedSize {
-  int32_t size = memoizedSerializedSize;
+  int32_t size = _memorizedSerializedSize;
   if (size != -1) {
     return size;
   }
@@ -4632,7 +4632,7 @@ static PBEnumValueOptions* defaultPBEnumValueOptionsInstance = nil;
   }
   size += [self extensionsSerializedSize];
   size += self.unknownFields.serializedSize;
-  memoizedSerializedSize = size;
+  _memorizedSerializedSize = size;
   return size;
 }
 + (PBEnumValueOptions*) parseFromData:(NSData*) data {
@@ -4830,7 +4830,7 @@ static PBServiceOptions* defaultPBServiceOptionsInstance = nil;
   [self.unknownFields writeToCodedOutputStream:output];
 }
 - (int32_t) serializedSize {
-  int32_t size = memoizedSerializedSize;
+  int32_t size = _memorizedSerializedSize;
   if (size != -1) {
     return size;
   }
@@ -4841,7 +4841,7 @@ static PBServiceOptions* defaultPBServiceOptionsInstance = nil;
   }
   size += [self extensionsSerializedSize];
   size += self.unknownFields.serializedSize;
-  memoizedSerializedSize = size;
+  _memorizedSerializedSize = size;
   return size;
 }
 + (PBServiceOptions*) parseFromData:(NSData*) data {
@@ -5039,7 +5039,7 @@ static PBMethodOptions* defaultPBMethodOptionsInstance = nil;
   [self.unknownFields writeToCodedOutputStream:output];
 }
 - (int32_t) serializedSize {
-  int32_t size = memoizedSerializedSize;
+  int32_t size = _memorizedSerializedSize;
   if (size != -1) {
     return size;
   }
@@ -5050,7 +5050,7 @@ static PBMethodOptions* defaultPBMethodOptionsInstance = nil;
   }
   size += [self extensionsSerializedSize];
   size += self.unknownFields.serializedSize;
-  memoizedSerializedSize = size;
+  _memorizedSerializedSize = size;
   return size;
 }
 + (PBMethodOptions*) parseFromData:(NSData*) data {
@@ -5304,7 +5304,7 @@ static PBUninterpretedOption* defaultPBUninterpretedOptionInstance = nil;
   [self.unknownFields writeToCodedOutputStream:output];
 }
 - (int32_t) serializedSize {
-  int32_t size = memoizedSerializedSize;
+  int32_t size = _memorizedSerializedSize;
   if (size != -1) {
     return size;
   }
@@ -5329,7 +5329,7 @@ static PBUninterpretedOption* defaultPBUninterpretedOptionInstance = nil;
     size += computeDataSize(7, self.stringValue);
   }
   size += self.unknownFields.serializedSize;
-  memoizedSerializedSize = size;
+  _memorizedSerializedSize = size;
   return size;
 }
 + (PBUninterpretedOption*) parseFromData:(NSData*) data {
@@ -5429,7 +5429,7 @@ static PBUninterpretedOption_NamePart* defaultPBUninterpretedOption_NamePartInst
   [self.unknownFields writeToCodedOutputStream:output];
 }
 - (int32_t) serializedSize {
-  int32_t size = memoizedSerializedSize;
+  int32_t size = _memorizedSerializedSize;
   if (size != -1) {
     return size;
   }
@@ -5442,7 +5442,7 @@ static PBUninterpretedOption_NamePart* defaultPBUninterpretedOption_NamePartInst
     size += computeBoolSize(2, self.isExtension);
   }
   size += self.unknownFields.serializedSize;
-  memoizedSerializedSize = size;
+  _memorizedSerializedSize = size;
   return size;
 }
 + (PBUninterpretedOption_NamePart*) parseFromData:(NSData*) data {

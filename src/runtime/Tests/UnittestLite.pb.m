@@ -2157,7 +2157,7 @@ static TestAllTypesLite* defaultTestAllTypesLiteInstance = nil;
   [self.unknownFields writeToCodedOutputStream:output];
 }
 - (int32_t) serializedSize {
-  int32_t size = memoizedSerializedSize;
+  int32_t size = _memorizedSerializedSize;
   if (size != -1) {
     return size;
   }
@@ -2487,7 +2487,7 @@ static TestAllTypesLite* defaultTestAllTypesLiteInstance = nil;
     size += computeStringSize(85, self.defaultCord);
   }
   size += self.unknownFields.serializedSize;
-  memoizedSerializedSize = size;
+  _memorizedSerializedSize = size;
   return size;
 }
 + (TestAllTypesLite*) parseFromData:(NSData*) data {
@@ -3207,7 +3207,7 @@ static TestAllTypesLite_NestedMessage* defaultTestAllTypesLite_NestedMessageInst
   [self.unknownFields writeToCodedOutputStream:output];
 }
 - (int32_t) serializedSize {
-  int32_t size = memoizedSerializedSize;
+  int32_t size = _memorizedSerializedSize;
   if (size != -1) {
     return size;
   }
@@ -3217,7 +3217,7 @@ static TestAllTypesLite_NestedMessage* defaultTestAllTypesLite_NestedMessageInst
     size += computeInt32Size(1, self.bb);
   }
   size += self.unknownFields.serializedSize;
-  memoizedSerializedSize = size;
+  _memorizedSerializedSize = size;
   return size;
 }
 + (TestAllTypesLite_NestedMessage*) parseFromData:(NSData*) data {
@@ -3415,7 +3415,7 @@ static TestAllTypesLite_OptionalGroup* defaultTestAllTypesLite_OptionalGroupInst
   [self.unknownFields writeToCodedOutputStream:output];
 }
 - (int32_t) serializedSize {
-  int32_t size = memoizedSerializedSize;
+  int32_t size = _memorizedSerializedSize;
   if (size != -1) {
     return size;
   }
@@ -3425,7 +3425,7 @@ static TestAllTypesLite_OptionalGroup* defaultTestAllTypesLite_OptionalGroupInst
     size += computeInt32Size(17, self.a);
   }
   size += self.unknownFields.serializedSize;
-  memoizedSerializedSize = size;
+  _memorizedSerializedSize = size;
   return size;
 }
 + (TestAllTypesLite_OptionalGroup*) parseFromData:(NSData*) data {
@@ -3623,7 +3623,7 @@ static TestAllTypesLite_RepeatedGroup* defaultTestAllTypesLite_RepeatedGroupInst
   [self.unknownFields writeToCodedOutputStream:output];
 }
 - (int32_t) serializedSize {
-  int32_t size = memoizedSerializedSize;
+  int32_t size = _memorizedSerializedSize;
   if (size != -1) {
     return size;
   }
@@ -3633,7 +3633,7 @@ static TestAllTypesLite_RepeatedGroup* defaultTestAllTypesLite_RepeatedGroupInst
     size += computeInt32Size(47, self.a);
   }
   size += self.unknownFields.serializedSize;
-  memoizedSerializedSize = size;
+  _memorizedSerializedSize = size;
   return size;
 }
 + (TestAllTypesLite_RepeatedGroup*) parseFromData:(NSData*) data {
@@ -5904,7 +5904,7 @@ static ForeignMessageLite* defaultForeignMessageLiteInstance = nil;
   [self.unknownFields writeToCodedOutputStream:output];
 }
 - (int32_t) serializedSize {
-  int32_t size = memoizedSerializedSize;
+  int32_t size = _memorizedSerializedSize;
   if (size != -1) {
     return size;
   }
@@ -5914,7 +5914,7 @@ static ForeignMessageLite* defaultForeignMessageLiteInstance = nil;
     size += computeInt32Size(1, self.c);
   }
   size += self.unknownFields.serializedSize;
-  memoizedSerializedSize = size;
+  _memorizedSerializedSize = size;
   return size;
 }
 + (ForeignMessageLite*) parseFromData:(NSData*) data {
@@ -6241,7 +6241,7 @@ static TestPackedTypesLite* defaultTestPackedTypesLiteInstance = nil;
   if (packedInt32ArrayCount > 0) {
     const int32_t *values = (const int32_t *)self.packedInt32Array.data;
     [output writeRawVarint32:722];
-    [output writeRawVarint32:packedInt32MemoizedSerializedSize];
+    [output writeRawVarint32:packedInt32_memorizedSerializedSize];
     for (NSUInteger i = 0; i < packedInt32ArrayCount; ++i) {
       [output writeInt32NoTag:values[i]];
     }
@@ -6250,7 +6250,7 @@ static TestPackedTypesLite* defaultTestPackedTypesLiteInstance = nil;
   if (packedInt64ArrayCount > 0) {
     const int64_t *values = (const int64_t *)self.packedInt64Array.data;
     [output writeRawVarint32:730];
-    [output writeRawVarint32:packedInt64MemoizedSerializedSize];
+    [output writeRawVarint32:packedInt64_memorizedSerializedSize];
     for (NSUInteger i = 0; i < packedInt64ArrayCount; ++i) {
       [output writeInt64NoTag:values[i]];
     }
@@ -6259,7 +6259,7 @@ static TestPackedTypesLite* defaultTestPackedTypesLiteInstance = nil;
   if (packedUint32ArrayCount > 0) {
     const uint32_t *values = (const uint32_t *)self.packedUint32Array.data;
     [output writeRawVarint32:738];
-    [output writeRawVarint32:packedUint32MemoizedSerializedSize];
+    [output writeRawVarint32:packedUint32_memorizedSerializedSize];
     for (NSUInteger i = 0; i < packedUint32ArrayCount; ++i) {
       [output writeUInt32NoTag:values[i]];
     }
@@ -6268,7 +6268,7 @@ static TestPackedTypesLite* defaultTestPackedTypesLiteInstance = nil;
   if (packedUint64ArrayCount > 0) {
     const uint64_t *values = (const uint64_t *)self.packedUint64Array.data;
     [output writeRawVarint32:746];
-    [output writeRawVarint32:packedUint64MemoizedSerializedSize];
+    [output writeRawVarint32:packedUint64_memorizedSerializedSize];
     for (NSUInteger i = 0; i < packedUint64ArrayCount; ++i) {
       [output writeUInt64NoTag:values[i]];
     }
@@ -6277,7 +6277,7 @@ static TestPackedTypesLite* defaultTestPackedTypesLiteInstance = nil;
   if (packedSint32ArrayCount > 0) {
     const int32_t *values = (const int32_t *)self.packedSint32Array.data;
     [output writeRawVarint32:754];
-    [output writeRawVarint32:packedSint32MemoizedSerializedSize];
+    [output writeRawVarint32:packedSint32_memorizedSerializedSize];
     for (NSUInteger i = 0; i < packedSint32ArrayCount; ++i) {
       [output writeSInt32NoTag:values[i]];
     }
@@ -6286,7 +6286,7 @@ static TestPackedTypesLite* defaultTestPackedTypesLiteInstance = nil;
   if (packedSint64ArrayCount > 0) {
     const int64_t *values = (const int64_t *)self.packedSint64Array.data;
     [output writeRawVarint32:762];
-    [output writeRawVarint32:packedSint64MemoizedSerializedSize];
+    [output writeRawVarint32:packedSint64_memorizedSerializedSize];
     for (NSUInteger i = 0; i < packedSint64ArrayCount; ++i) {
       [output writeSInt64NoTag:values[i]];
     }
@@ -6295,7 +6295,7 @@ static TestPackedTypesLite* defaultTestPackedTypesLiteInstance = nil;
   if (packedFixed32ArrayCount > 0) {
     const uint32_t *values = (const uint32_t *)self.packedFixed32Array.data;
     [output writeRawVarint32:770];
-    [output writeRawVarint32:packedFixed32MemoizedSerializedSize];
+    [output writeRawVarint32:packedFixed32_memorizedSerializedSize];
     for (NSUInteger i = 0; i < packedFixed32ArrayCount; ++i) {
       [output writeFixed32NoTag:values[i]];
     }
@@ -6304,7 +6304,7 @@ static TestPackedTypesLite* defaultTestPackedTypesLiteInstance = nil;
   if (packedFixed64ArrayCount > 0) {
     const uint64_t *values = (const uint64_t *)self.packedFixed64Array.data;
     [output writeRawVarint32:778];
-    [output writeRawVarint32:packedFixed64MemoizedSerializedSize];
+    [output writeRawVarint32:packedFixed64_memorizedSerializedSize];
     for (NSUInteger i = 0; i < packedFixed64ArrayCount; ++i) {
       [output writeFixed64NoTag:values[i]];
     }
@@ -6313,7 +6313,7 @@ static TestPackedTypesLite* defaultTestPackedTypesLiteInstance = nil;
   if (packedSfixed32ArrayCount > 0) {
     const int32_t *values = (const int32_t *)self.packedSfixed32Array.data;
     [output writeRawVarint32:786];
-    [output writeRawVarint32:packedSfixed32MemoizedSerializedSize];
+    [output writeRawVarint32:packedSfixed32_memorizedSerializedSize];
     for (NSUInteger i = 0; i < packedSfixed32ArrayCount; ++i) {
       [output writeSFixed32NoTag:values[i]];
     }
@@ -6322,7 +6322,7 @@ static TestPackedTypesLite* defaultTestPackedTypesLiteInstance = nil;
   if (packedSfixed64ArrayCount > 0) {
     const int64_t *values = (const int64_t *)self.packedSfixed64Array.data;
     [output writeRawVarint32:794];
-    [output writeRawVarint32:packedSfixed64MemoizedSerializedSize];
+    [output writeRawVarint32:packedSfixed64_memorizedSerializedSize];
     for (NSUInteger i = 0; i < packedSfixed64ArrayCount; ++i) {
       [output writeSFixed64NoTag:values[i]];
     }
@@ -6331,7 +6331,7 @@ static TestPackedTypesLite* defaultTestPackedTypesLiteInstance = nil;
   if (packedFloatArrayCount > 0) {
     const Float32 *values = (const Float32 *)self.packedFloatArray.data;
     [output writeRawVarint32:802];
-    [output writeRawVarint32:packedFloatMemoizedSerializedSize];
+    [output writeRawVarint32:packedFloat_memorizedSerializedSize];
     for (NSUInteger i = 0; i < packedFloatArrayCount; ++i) {
       [output writeFloatNoTag:values[i]];
     }
@@ -6340,7 +6340,7 @@ static TestPackedTypesLite* defaultTestPackedTypesLiteInstance = nil;
   if (packedDoubleArrayCount > 0) {
     const Float64 *values = (const Float64 *)self.packedDoubleArray.data;
     [output writeRawVarint32:810];
-    [output writeRawVarint32:packedDoubleMemoizedSerializedSize];
+    [output writeRawVarint32:packedDouble_memorizedSerializedSize];
     for (NSUInteger i = 0; i < packedDoubleArrayCount; ++i) {
       [output writeDoubleNoTag:values[i]];
     }
@@ -6349,7 +6349,7 @@ static TestPackedTypesLite* defaultTestPackedTypesLiteInstance = nil;
   if (packedBoolArrayCount > 0) {
     const BOOL *values = (const BOOL *)self.packedBoolArray.data;
     [output writeRawVarint32:818];
-    [output writeRawVarint32:packedBoolMemoizedSerializedSize];
+    [output writeRawVarint32:packedBool_memorizedSerializedSize];
     for (NSUInteger i = 0; i < packedBoolArrayCount; ++i) {
       [output writeBoolNoTag:values[i]];
     }
@@ -6358,7 +6358,7 @@ static TestPackedTypesLite* defaultTestPackedTypesLiteInstance = nil;
   const ForeignEnumLite *packedEnumArrayValues = (const ForeignEnumLite *)self.packedEnumArray.data;
   if (self.packedEnumArray.count > 0) {
     [output writeRawVarint32:826];
-    [output writeRawVarint32:packedEnumMemoizedSerializedSize];
+    [output writeRawVarint32:packedEnum_memorizedSerializedSize];
   }
   for (NSUInteger i = 0; i < packedEnumArrayCount; ++i) {
     [output writeEnumNoTag:packedEnumArrayValues[i]];
@@ -6366,7 +6366,7 @@ static TestPackedTypesLite* defaultTestPackedTypesLiteInstance = nil;
   [self.unknownFields writeToCodedOutputStream:output];
 }
 - (int32_t) serializedSize {
-  int32_t size = memoizedSerializedSize;
+  int32_t size = _memorizedSerializedSize;
   if (size != -1) {
     return size;
   }
@@ -6384,7 +6384,7 @@ static TestPackedTypesLite* defaultTestPackedTypesLiteInstance = nil;
       size += 2;
       size += computeInt32SizeNoTag(dataSize);
     }
-    packedInt32MemoizedSerializedSize = dataSize;
+    packedInt32_memorizedSerializedSize = dataSize;
   }
   {
     int32_t dataSize = 0;
@@ -6398,7 +6398,7 @@ static TestPackedTypesLite* defaultTestPackedTypesLiteInstance = nil;
       size += 2;
       size += computeInt32SizeNoTag(dataSize);
     }
-    packedInt64MemoizedSerializedSize = dataSize;
+    packedInt64_memorizedSerializedSize = dataSize;
   }
   {
     int32_t dataSize = 0;
@@ -6412,7 +6412,7 @@ static TestPackedTypesLite* defaultTestPackedTypesLiteInstance = nil;
       size += 2;
       size += computeInt32SizeNoTag(dataSize);
     }
-    packedUint32MemoizedSerializedSize = dataSize;
+    packedUint32_memorizedSerializedSize = dataSize;
   }
   {
     int32_t dataSize = 0;
@@ -6426,7 +6426,7 @@ static TestPackedTypesLite* defaultTestPackedTypesLiteInstance = nil;
       size += 2;
       size += computeInt32SizeNoTag(dataSize);
     }
-    packedUint64MemoizedSerializedSize = dataSize;
+    packedUint64_memorizedSerializedSize = dataSize;
   }
   {
     int32_t dataSize = 0;
@@ -6440,7 +6440,7 @@ static TestPackedTypesLite* defaultTestPackedTypesLiteInstance = nil;
       size += 2;
       size += computeInt32SizeNoTag(dataSize);
     }
-    packedSint32MemoizedSerializedSize = dataSize;
+    packedSint32_memorizedSerializedSize = dataSize;
   }
   {
     int32_t dataSize = 0;
@@ -6454,7 +6454,7 @@ static TestPackedTypesLite* defaultTestPackedTypesLiteInstance = nil;
       size += 2;
       size += computeInt32SizeNoTag(dataSize);
     }
-    packedSint64MemoizedSerializedSize = dataSize;
+    packedSint64_memorizedSerializedSize = dataSize;
   }
   {
     int32_t dataSize = 0;
@@ -6465,7 +6465,7 @@ static TestPackedTypesLite* defaultTestPackedTypesLiteInstance = nil;
       size += 2;
       size += computeInt32SizeNoTag(dataSize);
     }
-    packedFixed32MemoizedSerializedSize = dataSize;
+    packedFixed32_memorizedSerializedSize = dataSize;
   }
   {
     int32_t dataSize = 0;
@@ -6476,7 +6476,7 @@ static TestPackedTypesLite* defaultTestPackedTypesLiteInstance = nil;
       size += 2;
       size += computeInt32SizeNoTag(dataSize);
     }
-    packedFixed64MemoizedSerializedSize = dataSize;
+    packedFixed64_memorizedSerializedSize = dataSize;
   }
   {
     int32_t dataSize = 0;
@@ -6487,7 +6487,7 @@ static TestPackedTypesLite* defaultTestPackedTypesLiteInstance = nil;
       size += 2;
       size += computeInt32SizeNoTag(dataSize);
     }
-    packedSfixed32MemoizedSerializedSize = dataSize;
+    packedSfixed32_memorizedSerializedSize = dataSize;
   }
   {
     int32_t dataSize = 0;
@@ -6498,7 +6498,7 @@ static TestPackedTypesLite* defaultTestPackedTypesLiteInstance = nil;
       size += 2;
       size += computeInt32SizeNoTag(dataSize);
     }
-    packedSfixed64MemoizedSerializedSize = dataSize;
+    packedSfixed64_memorizedSerializedSize = dataSize;
   }
   {
     int32_t dataSize = 0;
@@ -6509,7 +6509,7 @@ static TestPackedTypesLite* defaultTestPackedTypesLiteInstance = nil;
       size += 2;
       size += computeInt32SizeNoTag(dataSize);
     }
-    packedFloatMemoizedSerializedSize = dataSize;
+    packedFloat_memorizedSerializedSize = dataSize;
   }
   {
     int32_t dataSize = 0;
@@ -6520,7 +6520,7 @@ static TestPackedTypesLite* defaultTestPackedTypesLiteInstance = nil;
       size += 2;
       size += computeInt32SizeNoTag(dataSize);
     }
-    packedDoubleMemoizedSerializedSize = dataSize;
+    packedDouble_memorizedSerializedSize = dataSize;
   }
   {
     int32_t dataSize = 0;
@@ -6531,7 +6531,7 @@ static TestPackedTypesLite* defaultTestPackedTypesLiteInstance = nil;
       size += 2;
       size += computeInt32SizeNoTag(dataSize);
     }
-    packedBoolMemoizedSerializedSize = dataSize;
+    packedBool_memorizedSerializedSize = dataSize;
   }
   {
     int32_t dataSize = 0;
@@ -6545,10 +6545,10 @@ static TestPackedTypesLite* defaultTestPackedTypesLiteInstance = nil;
       size += 2;
       size += computeRawVarint32Size(dataSize);
     }
-    packedEnumMemoizedSerializedSize = dataSize;
+    packedEnum_memorizedSerializedSize = dataSize;
   }
   size += self.unknownFields.serializedSize;
-  memoizedSerializedSize = size;
+  _memorizedSerializedSize = size;
   return size;
 }
 + (TestPackedTypesLite*) parseFromData:(NSData*) data {
@@ -7438,7 +7438,7 @@ static TestAllExtensionsLite* defaultTestAllExtensionsLiteInstance = nil;
   [self.unknownFields writeToCodedOutputStream:output];
 }
 - (int32_t) serializedSize {
-  int32_t size = memoizedSerializedSize;
+  int32_t size = _memorizedSerializedSize;
   if (size != -1) {
     return size;
   }
@@ -7446,7 +7446,7 @@ static TestAllExtensionsLite* defaultTestAllExtensionsLiteInstance = nil;
   size = 0;
   size += [self extensionsSerializedSize];
   size += self.unknownFields.serializedSize;
-  memoizedSerializedSize = size;
+  _memorizedSerializedSize = size;
   return size;
 }
 + (TestAllExtensionsLite*) parseFromData:(NSData*) data {
@@ -7620,7 +7620,7 @@ static OptionalGroup_extension_lite* defaultOptionalGroup_extension_liteInstance
   [self.unknownFields writeToCodedOutputStream:output];
 }
 - (int32_t) serializedSize {
-  int32_t size = memoizedSerializedSize;
+  int32_t size = _memorizedSerializedSize;
   if (size != -1) {
     return size;
   }
@@ -7630,7 +7630,7 @@ static OptionalGroup_extension_lite* defaultOptionalGroup_extension_liteInstance
     size += computeInt32Size(17, self.a);
   }
   size += self.unknownFields.serializedSize;
-  memoizedSerializedSize = size;
+  _memorizedSerializedSize = size;
   return size;
 }
 + (OptionalGroup_extension_lite*) parseFromData:(NSData*) data {
@@ -7828,7 +7828,7 @@ static RepeatedGroup_extension_lite* defaultRepeatedGroup_extension_liteInstance
   [self.unknownFields writeToCodedOutputStream:output];
 }
 - (int32_t) serializedSize {
-  int32_t size = memoizedSerializedSize;
+  int32_t size = _memorizedSerializedSize;
   if (size != -1) {
     return size;
   }
@@ -7838,7 +7838,7 @@ static RepeatedGroup_extension_lite* defaultRepeatedGroup_extension_liteInstance
     size += computeInt32Size(47, self.a);
   }
   size += self.unknownFields.serializedSize;
-  memoizedSerializedSize = size;
+  _memorizedSerializedSize = size;
   return size;
 }
 + (RepeatedGroup_extension_lite*) parseFromData:(NSData*) data {
@@ -8030,7 +8030,7 @@ static TestPackedExtensionsLite* defaultTestPackedExtensionsLiteInstance = nil;
   [self.unknownFields writeToCodedOutputStream:output];
 }
 - (int32_t) serializedSize {
-  int32_t size = memoizedSerializedSize;
+  int32_t size = _memorizedSerializedSize;
   if (size != -1) {
     return size;
   }
@@ -8038,7 +8038,7 @@ static TestPackedExtensionsLite* defaultTestPackedExtensionsLiteInstance = nil;
   size = 0;
   size += [self extensionsSerializedSize];
   size += self.unknownFields.serializedSize;
-  memoizedSerializedSize = size;
+  _memorizedSerializedSize = size;
   return size;
 }
 + (TestPackedExtensionsLite*) parseFromData:(NSData*) data {
@@ -8203,14 +8203,14 @@ static TestNestedExtensionLite* defaultTestNestedExtensionLiteInstance = nil;
   [self.unknownFields writeToCodedOutputStream:output];
 }
 - (int32_t) serializedSize {
-  int32_t size = memoizedSerializedSize;
+  int32_t size = _memorizedSerializedSize;
   if (size != -1) {
     return size;
   }
 
   size = 0;
   size += self.unknownFields.serializedSize;
-  memoizedSerializedSize = size;
+  _memorizedSerializedSize = size;
   return size;
 }
 + (TestNestedExtensionLite*) parseFromData:(NSData*) data {
@@ -8376,7 +8376,7 @@ static TestDeprecatedLite* defaultTestDeprecatedLiteInstance = nil;
   [self.unknownFields writeToCodedOutputStream:output];
 }
 - (int32_t) serializedSize {
-  int32_t size = memoizedSerializedSize;
+  int32_t size = _memorizedSerializedSize;
   if (size != -1) {
     return size;
   }
@@ -8386,7 +8386,7 @@ static TestDeprecatedLite* defaultTestDeprecatedLiteInstance = nil;
     size += computeInt32Size(1, self.deprecatedField);
   }
   size += self.unknownFields.serializedSize;
-  memoizedSerializedSize = size;
+  _memorizedSerializedSize = size;
   return size;
 }
 + (TestDeprecatedLite*) parseFromData:(NSData*) data {

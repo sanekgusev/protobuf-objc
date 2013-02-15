@@ -24,7 +24,6 @@
  * @author Cyrus Najmabadi
  */
 @interface PBAbstractMessage : NSObject<PBMessage> {
-@private
 }
 
 /**

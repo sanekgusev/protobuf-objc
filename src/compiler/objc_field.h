@@ -50,7 +50,8 @@ class FieldGenerator {
   virtual void GenerateSerializationCodeHeader(io::Printer* printer) const = 0;
   virtual void GenerateSerializedSizeCodeHeader(io::Printer* printer) const = 0;
 
-  virtual void GenerateExtensionSource(io::Printer* printer) const = 0;
+  virtual void GenerateExtensionFieldSource(io::Printer* printer) const = 0;
+  virtual void GenerateExtensionPropertySource(io::Printer* printer) const = 0;
   virtual void GenerateSynthesizeSource(io::Printer* printer) const = 0;
   virtual void GenerateDeallocSource(io::Printer* printer) const = 0;
   virtual void GenerateInitializationSource(io::Printer* printer) const = 0;

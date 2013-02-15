@@ -661,7 +661,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				COPY_PHASE_STRIP = NO;
 				DSTROOT = /tmp/ProtocolBuffers.dst;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -670,11 +669,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = ProtocolBuffers_Prefix.pch;
 				INSTALL_PATH = /usr/local/lib;
-				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = ProtocolBuffers;
-				SDKROOT = "";
-				VALID_ARCHS = "i386 x86_64";
-				"VALID_ARCHS[sdk=iphoneos*]" = "armv6 armv7";
 			};
 			name = Debug;
 		};
@@ -682,17 +677,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				DSTROOT = /tmp/ProtocolBuffers.dst;
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = ProtocolBuffers_Prefix.pch;
 				INSTALL_PATH = /usr/local/lib;
-				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = ProtocolBuffers;
-				SDKROOT = "";
-				VALID_ARCHS = "i386 x86_64";
-				"VALID_ARCHS[sdk=iphoneos*]" = "armv6 armv7";
 			};
 			name = Release;
 		};
@@ -705,6 +695,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = ../ProtocolBuffers;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				OBJROOT = Build;
 				OTHER_LDFLAGS = "-ObjC";
 				PRIVATE_HEADERS_FOLDER_PATH = ../ProtocolBuffers/private;
@@ -722,6 +713,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = ../ProtocolBuffers;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				OBJROOT = Build;
 				OTHER_LDFLAGS = "-ObjC";
 				PRIVATE_HEADERS_FOLDER_PATH = ../ProtocolBuffers/private;

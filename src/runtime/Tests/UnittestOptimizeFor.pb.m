@@ -111,7 +111,7 @@ static TestOptimizedForSize* defaultTestOptimizedForSizeInstance = nil;
   [self.unknownFields writeToCodedOutputStream:output];
 }
 - (int32_t) serializedSize {
-  int32_t size = memoizedSerializedSize;
+  int32_t size = _memorizedSerializedSize;
   if (size != -1) {
     return size;
   }
@@ -125,7 +125,7 @@ static TestOptimizedForSize* defaultTestOptimizedForSizeInstance = nil;
   }
   size += [self extensionsSerializedSize];
   size += self.unknownFields.serializedSize;
-  memoizedSerializedSize = size;
+  _memorizedSerializedSize = size;
   return size;
 }
 + (TestOptimizedForSize*) parseFromData:(NSData*) data {
@@ -388,7 +388,7 @@ static TestRequiredOptimizedForSize* defaultTestRequiredOptimizedForSizeInstance
   [self.unknownFields writeToCodedOutputStream:output];
 }
 - (int32_t) serializedSize {
-  int32_t size = memoizedSerializedSize;
+  int32_t size = _memorizedSerializedSize;
   if (size != -1) {
     return size;
   }
@@ -398,7 +398,7 @@ static TestRequiredOptimizedForSize* defaultTestRequiredOptimizedForSizeInstance
     size += computeInt32Size(1, self.x);
   }
   size += self.unknownFields.serializedSize;
-  memoizedSerializedSize = size;
+  _memorizedSerializedSize = size;
   return size;
 }
 + (TestRequiredOptimizedForSize*) parseFromData:(NSData*) data {
@@ -602,7 +602,7 @@ static TestOptionalOptimizedForSize* defaultTestOptionalOptimizedForSizeInstance
   [self.unknownFields writeToCodedOutputStream:output];
 }
 - (int32_t) serializedSize {
-  int32_t size = memoizedSerializedSize;
+  int32_t size = _memorizedSerializedSize;
   if (size != -1) {
     return size;
   }
@@ -612,7 +612,7 @@ static TestOptionalOptimizedForSize* defaultTestOptionalOptimizedForSizeInstance
     size += computeMessageSize(1, self.o);
   }
   size += self.unknownFields.serializedSize;
-  memoizedSerializedSize = size;
+  _memorizedSerializedSize = size;
   return size;
 }
 + (TestOptionalOptimizedForSize*) parseFromData:(NSData*) data {

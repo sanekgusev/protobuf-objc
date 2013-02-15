@@ -222,16 +222,10 @@ namespace google { namespace protobuf { namespace compiler { namespace objective
 
 
   void PrimitiveFieldGenerator::GenerateHasFieldHeader(io::Printer* printer) const {
-    printer->Print(variables_, "BOOL has$capitalized_name$_:1;\n");
   }
 
 
   void PrimitiveFieldGenerator::GenerateFieldHeader(io::Printer* printer) const {
-    if (descriptor_->type() ==  FieldDescriptor::TYPE_BOOL) {
-      printer->Print(variables_, "$storage_type$ $name$_:1;\n");
-    } else {
-      printer->Print(variables_, "$storage_type$ $name$;\n");
-    }
   }
 
 
@@ -242,55 +236,45 @@ namespace google { namespace protobuf { namespace compiler { namespace objective
   void PrimitiveFieldGenerator::GeneratePropertyHeader(io::Printer* printer) const {
     if (IsReferenceType(GetObjectiveCType(descriptor_))) {
       printer->Print(variables_,
-        "@property (readonly, retain)$storage_attribute$ $storage_type$ $name$;\n");
+        "@property (nonatomic, readonly, retain, getter=pb_$name$)$storage_attribute$ $storage_type$ $name$;\n");
     } else if (GetObjectiveCType(descriptor_) == OBJECTIVECTYPE_BOOLEAN) {
       printer->Print(variables_,
-        "- (BOOL) $name$;\n");
+        "@property (nonatomic, readonly, getter=pb_$name$) BOOL $name$;\n");
     } else {
       printer->Print(variables_,
-        "@property (readonly) $storage_type$ $name$;\n");
+        "@property (nonatomic, readonly, getter=pb_$name$) $storage_type$ $name$;\n");
     }
   }
 
 
-  void PrimitiveFieldGenerator::GenerateExtensionSource(io::Printer* printer) const {
-    if (IsReferenceType(GetObjectiveCType(descriptor_))) {
-      printer->Print(variables_,
-        "@property (retain)$storage_attribute$ $storage_type$ $name$;\n");
-    } else {
-      printer->Print(variables_,
-        "@property $storage_type$ $name$;\n");
-    }
+  void PrimitiveFieldGenerator::GenerateExtensionFieldSource(io::Printer* printer) const {
+      printer->Print(variables_, "BOOL _has$capitalized_name$;\n");
   }
 
+    void PrimitiveFieldGenerator::GenerateExtensionPropertySource(io::Printer *printer) const {
+        if (IsReferenceType(GetObjectiveCType(descriptor_))) {
+            printer->Print(variables_,
+                           "@property (nonatomic, readwrite, retain, setter=pb_set$capitalized_name$:)$storage_attribute$ $storage_type$ $name$;\n");
+        } else {
+            printer->Print(variables_,
+                           "@property (nonatomic, readwrite, setter=pb_set$capitalized_name$:) $storage_type$ $name$;\n");
+        }
+    }
 
   void PrimitiveFieldGenerator::GenerateSynthesizeSource(io::Printer* printer) const {
     printer->Print(variables_,
       "- (BOOL) has$capitalized_name$ {\n"
-      "  return !!has$capitalized_name$_;\n"
-      "}\n"
-      "- (void) setHas$capitalized_name$:(BOOL) value_ {\n"
-      "  has$capitalized_name$_ = !!value_;\n"
+      "  return !!_has$capitalized_name$;\n"
       "}\n");
-
-    if (GetObjectiveCType(descriptor_) == OBJECTIVECTYPE_BOOLEAN) {
       printer->Print(variables_,
-        "- (BOOL) $name$ {\n"
-        "  return !!$name$_;\n"
-        "}\n"
-        "- (void) set$capitalized_name$:(BOOL) value_ {\n"
-        "  $name$_ = !!value_;\n"
-        "}\n");
-    } else {
-      printer->Print(variables_, "@synthesize $name$;\n");
-    }
+                     "@synthesize $name$ = _pb_$name$;\n");
   }
 
 
   void PrimitiveFieldGenerator::GenerateDeallocSource(io::Printer* printer) const {
     if (IsReferenceType(GetObjectiveCType(descriptor_))) {
       printer->Print(variables_,
-        "self.$name$ = nil;\n");
+        "[_pb_$name$ release];\n");
     }
   }
 
@@ -312,9 +296,13 @@ namespace google { namespace protobuf { namespace compiler { namespace objective
   void PrimitiveFieldGenerator::GenerateBuilderMembersHeader(io::Printer* printer) const {
     printer->Print(variables_,
       "- (BOOL) has$capitalized_name$;\n"
-      "- ($storage_type$) $name$$storage_attribute$;\n"
-      "- ($classname$_Builder*) set$capitalized_name$:($storage_type$) value;\n"
       "- ($classname$_Builder*) clear$capitalized_name$;\n");
+      if (IsReferenceType(GetObjectiveCType(descriptor_))) {
+          printer->Print(variables_, "@property (nonatomic, retain, getter=pb_$name$, setter=pb_set$capitalized_name$:)$storage_attribute$ $storage_type$ $name$;\n");
+      }
+      else {
+          printer->Print(variables_, "@property (nonatomic, assign, getter=pb_$name$, setter=pb_set$capitalized_name$:)$storage_attribute$ $storage_type$ $name$;\n");
+      }
   }
 
 
@@ -341,28 +329,27 @@ namespace google { namespace protobuf { namespace compiler { namespace objective
   void PrimitiveFieldGenerator::GenerateBuilderMembersSource(io::Printer* printer) const {
     printer->Print(variables_,
       "- (BOOL) has$capitalized_name$ {\n"
-      "  return result.has$capitalized_name$;\n"
-      "}\n"
-      "- ($storage_type$) $name$ {\n"
-      "  return result.$name$;\n"
-      "}\n"
-      "- ($classname$_Builder*) set$capitalized_name$:($storage_type$) value {\n"
-      "  result.has$capitalized_name$ = YES;\n"
-      "  result.$name$ = value;\n"
-      "  return self;\n"
+      "  return [_result has$capitalized_name$];\n"
       "}\n"
       "- ($classname$_Builder*) clear$capitalized_name$ {\n"
-      "  result.has$capitalized_name$ = NO;\n"
-      "  result.$name$ = $default$;\n"
+      "  _result->_has$capitalized_name$ = NO;\n"
+      "  _result.$name$ = $default$;\n"
       "  return self;\n"
-      "}\n");
+      "}\n"
+       "- ($storage_type$) pb_$name$ {\n"
+       "  return _result.$name$;\n"
+       "}\n"
+       "- (void) pb_set$capitalized_name$:($storage_type$) value {\n"
+       "  _result->_has$capitalized_name$ = YES;\n"
+       "  _result.$name$ = value;\n"
+       "}\n");
   }
 
 
   void PrimitiveFieldGenerator::GenerateMergingCodeSource(io::Printer* printer) const {
     printer->Print(variables_,
-      "if (other.has$capitalized_name$) {\n"
-      "  [self set$capitalized_name$:other.$name$];\n"
+      "if ([other has$capitalized_name$]) {\n"
+      "  self.$name$ = other.$name$;\n"
       "}\n");
   }
 
@@ -371,26 +358,26 @@ namespace google { namespace protobuf { namespace compiler { namespace objective
 
   void PrimitiveFieldGenerator::GenerateParsingCodeSource(io::Printer* printer) const {
     printer->Print(variables_,
-      "[self set$capitalized_name$:[input read$capitalized_type$]];\n");
+      "self.$name$ = [input read$capitalized_type$];\n");
   }
 
   void PrimitiveFieldGenerator::GenerateSerializationCodeSource(io::Printer* printer) const {
     printer->Print(variables_,
-      "if (self.has$capitalized_name$) {\n"
+      "if ([self has$capitalized_name$]) {\n"
       "  [output write$capitalized_type$:$number$ value:self.$name$];\n"
       "}\n");
   }
 
   void PrimitiveFieldGenerator::GenerateSerializedSizeCodeSource(io::Printer* printer) const {
     printer->Print(variables_,
-      "if (self.has$capitalized_name$) {\n"
-      "  size_ += compute$capitalized_type$Size($number$, self.$name$);\n"
+      "if ([self has$capitalized_name$]) {\n"
+      "  size += compute$capitalized_type$Size($number$, self.$name$);\n"
       "}\n");
   }
 
   void PrimitiveFieldGenerator::GenerateDescriptionCodeSource(io::Printer* printer) const {
     printer->Print(variables_,
-      "if (self.has$capitalized_name$) {\n"
+      "if ([self has$capitalized_name$]) {\n"
       "  [output appendFormat:@\"%@%@: %@\\n\", indent, @\"$name$\", ");
     printer->Print(variables_,
       BoxValue(descriptor_, "self.$name$").c_str());
@@ -401,8 +388,8 @@ namespace google { namespace protobuf { namespace compiler { namespace objective
 
   void PrimitiveFieldGenerator::GenerateIsEqualCodeSource(io::Printer* printer) const {
     printer->Print(variables_,
-      "self.has$capitalized_name$ == otherMessage.has$capitalized_name$ &&\n"
-      "(!self.has$capitalized_name$ || ");
+      "[self has$capitalized_name$] == [otherMessage has$capitalized_name$] &&\n"
+      "(![self has$capitalized_name$] || ");
     if (ReturnsPrimitiveType(descriptor_)) {
       printer->Print(variables_, "self.$name$ == otherMessage.$name$) &&");
     } else {
@@ -412,7 +399,7 @@ namespace google { namespace protobuf { namespace compiler { namespace objective
 
   void PrimitiveFieldGenerator::GenerateHashCodeSource(io::Printer* printer) const {
     printer->Print(variables_,
-      "if (self.has$capitalized_name$) {\n");
+      "if ([self has$capitalized_name$]) {\n");
     printer->Print("  hashCode = hashCode * 31 + [");
     printer->Print(variables_, BoxValue(descriptor_, "self.$name$").c_str());
     printer->Print(
@@ -435,11 +422,6 @@ namespace google { namespace protobuf { namespace compiler { namespace objective
 
 
   void RepeatedPrimitiveFieldGenerator::GenerateFieldHeader(io::Printer* printer) const {
-    printer->Print(variables_, "PBAppendableArray * $list_name$;\n");
-    if (descriptor_->options().packed()) {
-      printer->Print(variables_,
-        "int32_t $name$MemoizedSerializedSize;\n");
-    }
   }
 
 
@@ -448,27 +430,34 @@ namespace google { namespace protobuf { namespace compiler { namespace objective
 
 
   void RepeatedPrimitiveFieldGenerator::GeneratePropertyHeader(io::Printer* printer) const {
-    printer->Print(variables_, "@property (readonly, retain) PBArray * $name$;\n");
+    printer->Print(variables_, "@property (nonatomic, readonly, retain, getter=pb_$name$) PBArray * $name$;\n");
   }
 
 
-  void RepeatedPrimitiveFieldGenerator::GenerateExtensionSource(io::Printer* printer) const {
-    printer->Print(variables_, "@property (retain) PBAppendableArray * $list_name$;\n");
+  void RepeatedPrimitiveFieldGenerator::GenerateExtensionFieldSource(io::Printer* printer) const {
+    printer->Print(variables_, "PBAppendableArray *_pb_$name$;\n");
+      if (descriptor_->options().packed()) {
+          printer->Print(variables_,
+                         "int32_t _$name$MemorizedSerializedSize;\n");
+      }
   }
 
+    void RepeatedPrimitiveFieldGenerator::GenerateExtensionPropertySource(io::Printer* printer) const {
+        printer->Print(variables_, "@property (nonatomic, readwrite, retain, setter=pb_set$capitalized_name$:) PBArray *$name$;\n");
+    }
 
   void RepeatedPrimitiveFieldGenerator::GenerateSynthesizeSource(io::Printer* printer) const {
-    printer->Print(variables_, "@synthesize $list_name$;\n");
-    printer->Print(variables_, "@dynamic $name$;\n");
+    printer->Print(variables_, "@synthesize $name$ = _pb_$name$;\n");
   }
 
 
   void RepeatedPrimitiveFieldGenerator::GenerateDeallocSource(io::Printer* printer) const {
-    printer->Print(variables_, "self.$list_name$ = nil;\n");
+    printer->Print(variables_, "[_pb_$name$ release];\n");
   }
 
 
-  void RepeatedPrimitiveFieldGenerator::GenerateInitializationSource(io::Printer* printer) const {;
+  void RepeatedPrimitiveFieldGenerator::GenerateInitializationSource(io::Printer* printer) const {
+      printer->Print(variables_, "_pb_$name$ = [[PBAppendableArray alloc] init];");
   }
 
 
@@ -479,7 +468,7 @@ namespace google { namespace protobuf { namespace compiler { namespace objective
 
   void RepeatedPrimitiveFieldGenerator::GenerateBuilderMembersHeader(io::Printer* printer) const {
     printer->Print(variables_,
-      "- (PBAppendableArray *)$name$;\n"
+      "- (PBAppendableArray *)pb_$name$;\n"
       "- ($storage_type$)$name$AtIndex:(NSUInteger)index;\n"
       "- ($classname$_Builder *)add$capitalized_name$:($storage_type$)value;\n"
       "- ($classname$_Builder *)set$capitalized_name$Array:(NSArray *)array;\n"
@@ -510,50 +499,47 @@ namespace google { namespace protobuf { namespace compiler { namespace objective
 
   void RepeatedPrimitiveFieldGenerator::GenerateMembersSource(io::Printer* printer) const {
     printer->Print(variables_,
-      "- (PBArray *)$name$ {\n"
-      "  return $list_name$;\n"
-      "}\n"
       "- ($storage_type$)$name$AtIndex:(NSUInteger)index {\n"
-      "  return [$list_name$ $array_value_type_name$AtIndex:index];\n"
+      "  return [_pb_$name$ $array_value_type_name$AtIndex:index];\n"
       "}\n");
   }
 
   void RepeatedPrimitiveFieldGenerator::GenerateBuilderMembersSource(io::Printer* printer) const {
     printer->Print(variables_,
-      "- (PBAppendableArray *)$name$ {\n"
-      "  return result.$list_name$;\n"
+      "- (PBAppendableArray *)pb_$name$ {\n"
+      "  return _result->_pb_$name$;\n"
       "}\n"
       "- ($storage_type$)$name$AtIndex:(NSUInteger)index {\n"
-      "  return [result $name$AtIndex:index];\n"
+      "  return [_result $name$AtIndex:index];\n"
       "}\n"
       "- ($classname$_Builder *)add$capitalized_name$:($storage_type$)value {\n"
-      "  if (result.$list_name$ == nil) {\n"
-      "    result.$list_name$ = [PBAppendableArray arrayWithValueType:$array_value_type$];\n"
+      "  if (_result.$name$ == nil) {\n"
+      "    _result.$name$ = [PBAppendableArray arrayWithValueType:$array_value_type$];\n"
       "  }\n"
-      "  [result.$list_name$ add$array_value_type_name_cap$:value];\n"
+      "  [_result->_pb_$name$ add$array_value_type_name_cap$:value];\n"
       "  return self;\n"
       "}\n"
       "- ($classname$_Builder *)set$capitalized_name$Array:(NSArray *)array {\n"
-      "  result.$list_name$ = [PBAppendableArray arrayWithArray:array valueType:$array_value_type$];\n"
+      "  _result.$name$ = [PBAppendableArray arrayWithArray:array valueType:$array_value_type$];\n"
       "  return self;\n"
       "}\n"
       "- ($classname$_Builder *)set$capitalized_name$Values:(const $storage_type$ *)values count:(NSUInteger)count {\n"
-      "  result.$list_name$ = [PBAppendableArray arrayWithValues:values count:count valueType:$array_value_type$];\n"
+      "  _result.$name$ = [PBAppendableArray arrayWithValues:values count:count valueType:$array_value_type$];\n"
       "  return self;\n"
       "}\n"
       "- ($classname$_Builder *)clear$capitalized_name$ {\n"
-      "  result.$list_name$ = nil;\n"
+      "  _result.$name$ = nil;\n"
       "  return self;\n"
       "}\n");
   }
 
   void RepeatedPrimitiveFieldGenerator::GenerateMergingCodeSource(io::Printer* printer) const {
     printer->Print(variables_,
-      "if (other.$list_name$.count > 0) {\n"
-      "  if (result.$list_name$ == nil) {\n"
-      "    result.$list_name$ = [[other.$list_name$ copyWithZone:[other.$list_name$ zone]] autorelease];\n"
+      "if ([other.$name$ count] > 0) {\n"
+      "  if (_result.$name$ == nil) {\n"
+      "    _result.$name$ = [[other.$name$ copyWithZone:[other.$name$ zone]] autorelease];\n"
       "  } else {\n"
-      "    [result.$list_name$ appendArray:other.$list_name$];\n"
+      "    [_result->_pb_$name$ appendArray:other.$name$];\n"
       "  }\n"
       "}\n");
   }
@@ -568,11 +554,11 @@ namespace google { namespace protobuf { namespace compiler { namespace objective
       printer->Print(variables_,
         "int32_t length = [input readRawVarint32];\n"
         "int32_t limit = [input pushLimit:length];\n"
-        "if (result.$list_name$ == nil) {\n"
-        "  result.$list_name$ = [PBAppendableArray arrayWithValueType:$array_value_type$];\n"
+        "if (_result.$name$ == nil) {\n"
+        "  _result.$name$ = [PBAppendableArray arrayWithValueType:$array_value_type$];\n"
         "}\n"
         "while (input.bytesUntilLimit > 0) {\n"
-        "  [result.$list_name$ add$array_value_type_name_cap$:[input read$capitalized_type$]];\n"
+        "  [_result->_pb_$name$ add$array_value_type_name_cap$:[input read$capitalized_type$]];\n"
         "}\n"
         "[input popLimit:limit];\n");
     } else {
@@ -584,21 +570,21 @@ namespace google { namespace protobuf { namespace compiler { namespace objective
 
   void RepeatedPrimitiveFieldGenerator::GenerateSerializationCodeSource(io::Printer* printer) const {
     printer->Print(variables_,
-      "const NSUInteger $list_name$Count = self.$list_name$.count;\n"
-      "if ($list_name$Count > 0) {\n"
-      "  const $storage_type$ *values = (const $storage_type$ *)self.$list_name$.data;\n");
+      "const NSUInteger $name$Count = [self.$name$ count];\n"
+      "if ($name$Count > 0) {\n"
+      "  const $storage_type$ *values = (const $storage_type$ *)self.$name$.data;\n");
     printer->Indent();
 
     if (descriptor_->options().packed()) {
       printer->Print(variables_,
         "[output writeRawVarint32:$tag$];\n"
-        "[output writeRawVarint32:$name$MemoizedSerializedSize];\n"
-        "for (NSUInteger i = 0; i < $list_name$Count; ++i) {\n"
+        "[output writeRawVarint32:_$name$MemorizedSerializedSize];\n"
+        "for (NSUInteger i = 0; i < $name$Count; ++i) {\n"
         "  [output write$capitalized_type$NoTag:values[i]];\n"
         "}\n");
     } else {
       printer->Print(variables_,
-        "for (NSUInteger i = 0; i < $list_name$Count; ++i) {\n"
+        "for (NSUInteger i = 0; i < $name$Count; ++i) {\n"
         "  [output write$capitalized_type$:$number$ value:values[i]];\n"
         "}\n");
     }
@@ -614,11 +600,11 @@ namespace google { namespace protobuf { namespace compiler { namespace objective
 
     printer->Print(variables_,
       "int32_t dataSize = 0;\n"
-      "const NSUInteger count = self.$list_name$.count;\n");
+      "const NSUInteger count = [self.$name$ count];\n");
 
     if (FixedSize(descriptor_->type()) == -1) {
       printer->Print(variables_,
-        "const $storage_type$ *values = (const $storage_type$ *)self.$list_name$.data;\n"
+        "const $storage_type$ *values = (const $storage_type$ *)self.$name$.data;\n"
         "for (NSUInteger i = 0; i < count; ++i) {\n"
         "  dataSize += compute$capitalized_type$SizeNoTag(values[i]);\n"
         "}\n");
@@ -627,18 +613,18 @@ namespace google { namespace protobuf { namespace compiler { namespace objective
         "dataSize = $fixed_size$ * count;\n");
     }
 
-    printer->Print("size_ += dataSize;\n");
+    printer->Print("size += dataSize;\n");
 
     if (descriptor_->options().packed()) {
       printer->Print(variables_,
         "if (count > 0) {\n"
-        "  size_ += $tag_size$;\n"
-        "  size_ += computeInt32SizeNoTag(dataSize);\n"
+        "  size += $tag_size$;\n"
+        "  size += computeInt32SizeNoTag(dataSize);\n"
         "}\n"
-        "$name$MemoizedSerializedSize = dataSize;\n");
+        "_$name$MemorizedSerializedSize = dataSize;\n");
     } else {
       printer->Print(variables_,
-        "size_ += $tag_size$ * count;\n");
+        "size += $tag_size$ * count;\n");
     }
 
     printer->Outdent();
@@ -649,12 +635,12 @@ namespace google { namespace protobuf { namespace compiler { namespace objective
   void RepeatedPrimitiveFieldGenerator::GenerateDescriptionCodeSource(io::Printer* printer) const {
     if (ReturnsPrimitiveType(descriptor_)) {
       printer->Print(variables_,
-        "for (NSNumber* value in self.$list_name$) {\n"
+        "for (NSNumber* value in self.$name$) {\n"
         "  [output appendFormat:@\"%@%@: %@\\n\", indent, @\"$name$\", value];\n"
         "}\n");
     } else {
       printer->Print(variables_,
-        "for ($storage_type$ element in self.$list_name$) {\n"
+        "for ($storage_type$ element in self.$name$) {\n"
         "  [output appendFormat:@\"%@%@: %@\\n\", indent, @\"$name$\", element];\n"
         "}\n");
     }
@@ -663,19 +649,19 @@ namespace google { namespace protobuf { namespace compiler { namespace objective
 
   void RepeatedPrimitiveFieldGenerator::GenerateIsEqualCodeSource(io::Printer* printer) const {
     printer->Print(variables_,
-      "[self.$list_name$ isEqualToArray:otherMessage.$list_name$] &&");
+      "[self.$name$ isEqualToArray:otherMessage.$name$] &&");
   }
 
 
   void RepeatedPrimitiveFieldGenerator::GenerateHashCodeSource(io::Printer* printer) const {
     if (ReturnsPrimitiveType(descriptor_)) {
       printer->Print(variables_,
-        "for (NSNumber* value in self.$list_name$) {\n"
+        "for (NSNumber* value in self.$name$) {\n"
         "  hashCode = hashCode * 31 + [value intValue];\n"
         "}\n");
     } else {
       printer->Print(variables_,
-        "for ($storage_type$ element in self.$list_name$) {\n"
+        "for ($storage_type$ element in self.$name$) {\n"
         "  hashCode = hashCode * 31 + [element hash];\n"
         "}\n");
     }
